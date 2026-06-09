@@ -13,10 +13,23 @@ Agents:
 import os
 import json
 from openai import OpenAI
+from dotenv import load_dotenv
 
-client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+# Load .env file if present (works locally and in Streamlit)
+load_dotenv()
 
 MODEL = "gpt-4o-mini"
+
+
+def _get_client() -> OpenAI:
+    """Lazily create the OpenAI client so imports never fail."""
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if not api_key:
+        raise ValueError(
+            "OPENAI_API_KEY is not set. "
+            "Add it to your .env file or export it as an environment variable."
+        )
+    return OpenAI(api_key=api_key)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # AGENT 1 — Syllabus Parser Agent
@@ -29,6 +42,7 @@ def agent_syllabus_parser(raw_syllabus: str) -> dict:
     """
     print("\n🤖 [Agent 1 — Syllabus Parser] Extracting structured data...")
 
+    client = _get_client()
     response = client.chat.completions.create(
         model=MODEL,
         messages=[
@@ -87,6 +101,7 @@ def agent_student_profiler(parsed_data: dict, student_input: str) -> dict:
     """
     print("\n🤖 [Agent 2 — Student Profiler] Analyzing gaps & priorities...")
 
+    client = _get_client()
     response = client.chat.completions.create(
         model=MODEL,
         messages=[
@@ -152,6 +167,7 @@ def agent_study_strategist(parsed_data: dict, student_profile: dict) -> str:
     """
     print("\n🤖 [Agent 3 — Study Strategist] Orchestrating study workflow...")
 
+    client = _get_client()
     response = client.chat.completions.create(
         model=MODEL,
         messages=[

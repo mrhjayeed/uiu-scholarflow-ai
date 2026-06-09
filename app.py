@@ -276,7 +276,7 @@ Deliverables:
 
 Key Topics: Processes, CPU Scheduling, Synchronization,
 Memory Management, File Systems, I/O Systems""",
-        key="syllabus_input",
+        value=st.session_state.get("demo_syllabus", ""),
     )
 
 with col2:
@@ -298,7 +298,7 @@ I'm okay with Process concepts and File Systems basics.
 
 I can study 3–4 hours on weekdays, 5–6 hours on weekends.
 My midterm is in 12 days. I really need to pass this one.""",
-        key="student_input",
+        value=st.session_state.get("demo_student", ""),
     )
 
 # ─── Quick Fill Demo Button ───────────────────────────────────────────────────
@@ -330,8 +330,8 @@ My midterm is in 12 days. This is worth 30% so I really need to focus."""
 
 with col_fill:
     if st.button("⚡ Load Demo Data", use_container_width=True):
-        st.session_state["syllabus_input"] = DEMO_SYLLABUS
-        st.session_state["student_input"] = DEMO_STUDENT
+        st.session_state["demo_syllabus"] = DEMO_SYLLABUS
+        st.session_state["demo_student"] = DEMO_STUDENT
         st.rerun()
 
 with col_run:
@@ -339,14 +339,14 @@ with col_run:
 
 with col_clear:
     if st.button("🗑️ Clear", use_container_width=True):
-        for key in ["syllabus_input", "student_input", "result", "agent_status"]:
+        for key in ["demo_syllabus", "demo_student", "result", "agent_status"]:
             st.session_state.pop(key, None)
         st.rerun()
 
 # ─── Pipeline Execution ───────────────────────────────────────────────────────
 if run_btn:
-    syllabus_val = st.session_state.get("syllabus_input", syllabus_input) or syllabus_input
-    student_val = st.session_state.get("student_input", student_input) or student_input
+    syllabus_val = syllabus_input or st.session_state.get("demo_syllabus", "")
+    student_val = student_input or st.session_state.get("demo_student", "")
 
     if not syllabus_val.strip() or not student_val.strip():
         st.error("⚠️ Please fill in both the syllabus and your profile before running.")
