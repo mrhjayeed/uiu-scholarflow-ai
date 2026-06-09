@@ -329,16 +329,16 @@ I can study about 3–4 hours per day on weekdays and 5–6 hours on weekends.
 My midterm is in 12 days. This is worth 30% so I really need to focus."""
 
 with col_fill:
-    if st.button("⚡ Load Demo Data", use_container_width=True):
+    if st.button("⚡ Load Demo Data", use_container_width=True, key="btn_demo"):
         st.session_state["demo_syllabus"] = DEMO_SYLLABUS
         st.session_state["demo_student"] = DEMO_STUDENT
         st.rerun()
 
 with col_run:
-    run_btn = st.button("🚀 Generate My ScholarFlow Plan", use_container_width=True, type="primary")
+    run_btn = st.button("🚀 Generate My ScholarFlow Plan", use_container_width=True, type="primary", key="btn_run")
 
 with col_clear:
-    if st.button("🗑️ Clear", use_container_width=True):
+    if st.button("🗑️ Clear", use_container_width=True, key="btn_clear"):
         for key in ["demo_syllabus", "demo_student", "result", "agent_status"]:
             st.session_state.pop(key, None)
         st.rerun()
@@ -453,9 +453,11 @@ if "result" in st.session_state:
 
     with tab1:
         st.markdown(
-            f'<div class="plan-container">{result["study_plan"]}</div>',
+            '<div class="plan-container">',
             unsafe_allow_html=True,
         )
+        st.markdown(result["study_plan"])
+        st.markdown('</div>', unsafe_allow_html=True)
 
     with tab2:
         if priority_matrix:
@@ -464,7 +466,7 @@ if "result" in st.session_state:
             df = pd.DataFrame(priority_matrix)
             st.dataframe(
                 df,
-                use_container_width=True,
+                width="stretch",
                 column_config={
                     "topic": "📚 Topic",
                     "urgency_score": st.column_config.ProgressColumn(
