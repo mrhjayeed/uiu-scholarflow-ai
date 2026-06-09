@@ -25,155 +25,212 @@ st.markdown(
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
-html, body, [class*="css"] {
-    font-family: 'Inter', sans-serif;
-}
+html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
 
+/* ── App background ── */
 .stApp {
-    background: linear-gradient(135deg, #0a0e1a 0%, #0d1321 50%, #0a1628 100%);
+    background: linear-gradient(135deg, #07090f 0%, #0b0f1c 50%, #070c18 100%);
     color: #e2e8f0;
 }
 
-/* Hero Header */
-.hero-header {
-    background: linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(139,92,246,0.15) 100%);
-    border: 1px solid rgba(99,102,241,0.3);
-    border-radius: 20px;
-    padding: 2.5rem 3rem;
+/* ── Hero ── */
+.hero-wrap {
+    margin-top: 1.5rem;
     margin-bottom: 2rem;
-    backdrop-filter: blur(20px);
-    text-align: center;
 }
-
+.hero-header {
+    background: linear-gradient(135deg, rgba(99,102,241,0.12) 0%, rgba(139,92,246,0.12) 100%);
+    border: 1px solid rgba(99,102,241,0.35);
+    border-radius: 24px;
+    padding: 2.5rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.hero-header::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: 50%;
+    transform: translateX(-50%);
+    width: 300px; height: 120px;
+    background: radial-gradient(ellipse, rgba(99,102,241,0.25), transparent 70%);
+    pointer-events: none;
+}
 .hero-header h1 {
-    background: linear-gradient(135deg, #818cf8, #c084fc, #fb7185);
+    background: linear-gradient(135deg, #818cf8 0%, #c084fc 55%, #fb7185 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 2.8rem;
-    font-weight: 700;
+    font-weight: 800;
     margin: 0;
-    letter-spacing: -0.5px;
+    letter-spacing: -1px;
+    line-height: 1.15;
 }
-
-.hero-header p {
-    color: #94a3b8;
-    font-size: 1.1rem;
-    margin-top: 0.5rem;
+.hero-header .subtitle {
+    color: #64748b;
+    font-size: 1rem;
+    margin-top: 0.6rem;
+    letter-spacing: 0.2px;
 }
-
-/* Agent Cards */
-.agent-card {
-    background: rgba(15, 23, 42, 0.8);
-    border: 1px solid rgba(99,102,241,0.25);
-    border-radius: 16px;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
+.hero-header .badge-row {
+    display: flex;
+    gap: 0.6rem;
+    justify-content: center;
+    margin-top: 1rem;
+    flex-wrap: wrap;
 }
-
-.agent-card.active {
-    border-color: rgba(99,102,241,0.7);
-    box-shadow: 0 0 20px rgba(99,102,241,0.2);
-}
-
-.agent-card.done {
-    border-color: rgba(52,211,153,0.5);
-    box-shadow: 0 0 15px rgba(52,211,153,0.1);
-}
-
-.agent-badge {
-    display: inline-block;
-    padding: 0.25rem 0.75rem;
+.hero-badge {
+    background: rgba(99,102,241,0.15);
+    border: 1px solid rgba(99,102,241,0.3);
     border-radius: 999px;
-    font-size: 0.75rem;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.78rem;
     font-weight: 600;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
+    color: #a5b4fc;
+    letter-spacing: 0.3px;
 }
 
-/* Plan output */
-.plan-container {
-    background: rgba(15, 23, 42, 0.9);
-    border: 1px solid rgba(52,211,153,0.3);
-    border-radius: 20px;
-    padding: 2rem;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 0 40px rgba(52,211,153,0.05);
-}
-
-/* Sidebar styling */
+/* ── Sidebar ── */
 [data-testid="stSidebar"] {
-    background: rgba(10, 14, 26, 0.95) !important;
-    border-right: 1px solid rgba(99,102,241,0.2) !important;
+    background: rgba(7, 9, 15, 0.98) !important;
+    border-right: 1px solid rgba(99,102,241,0.15) !important;
 }
 
-/* Buttons */
+/* ── Input card wrappers ── */
+.input-card {
+    background: rgba(13,19,35,0.7);
+    border: 1px solid rgba(99,102,241,0.2);
+    border-radius: 18px;
+    padding: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+.input-card-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #c7d2fe;
+    margin-bottom: 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.input-card-hint {
+    color: #475569;
+    font-size: 0.8rem;
+    margin-bottom: 0.75rem;
+}
+
+/* ── Textareas ── */
+.stTextArea textarea {
+    background: rgba(7,9,15,0.8) !important;
+    border: 1px solid rgba(99,102,241,0.25) !important;
+    border-radius: 12px !important;
+    color: #e2e8f0 !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 0.875rem !important;
+    line-height: 1.6 !important;
+    transition: border-color 0.2s ease !important;
+}
+.stTextArea textarea:focus {
+    border-color: rgba(99,102,241,0.6) !important;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.1) !important;
+}
+
+/* ── Buttons ── */
 .stButton > button {
     background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
     color: white !important;
     border: none !important;
     border-radius: 12px !important;
-    padding: 0.75rem 2rem !important;
+    padding: 0.7rem 1.5rem !important;
     font-weight: 600 !important;
-    font-size: 1rem !important;
-    letter-spacing: 0.3px !important;
-    transition: all 0.3s ease !important;
-    box-shadow: 0 4px 15px rgba(99,102,241,0.3) !important;
+    font-size: 0.95rem !important;
+    letter-spacing: 0.2px !important;
+    transition: all 0.25s ease !important;
+    box-shadow: 0 4px 15px rgba(99,102,241,0.25) !important;
 }
-
 .stButton > button:hover {
-    transform: translateY(-1px) !important;
-    box-shadow: 0 6px 25px rgba(99,102,241,0.45) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 28px rgba(99,102,241,0.4) !important;
 }
+.stButton > button:active { transform: translateY(0) !important; }
 
-/* Textareas */
-.stTextArea textarea {
-    background: rgba(15,23,42,0.8) !important;
-    border: 1px solid rgba(99,102,241,0.3) !important;
-    border-radius: 12px !important;
-    color: #e2e8f0 !important;
-    font-family: 'Inter', sans-serif !important;
-}
-
-/* Metric cards */
+/* ── Metric cards ── */
 .metric-card {
-    background: rgba(15,23,42,0.7);
-    border: 1px solid rgba(99,102,241,0.2);
-    border-radius: 14px;
-    padding: 1.25rem;
+    background: rgba(13,19,35,0.8);
+    border: 1px solid rgba(99,102,241,0.18);
+    border-radius: 16px;
+    padding: 1.3rem 1rem;
     text-align: center;
+    transition: border-color 0.2s ease;
 }
-
+.metric-card:hover { border-color: rgba(99,102,241,0.4); }
 .metric-number {
-    font-size: 2rem;
-    font-weight: 700;
+    font-size: 2.2rem;
+    font-weight: 800;
     background: linear-gradient(135deg, #818cf8, #c084fc);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    line-height: 1;
 }
-
 .metric-label {
-    color: #64748b;
-    font-size: 0.85rem;
-    font-weight: 500;
-    margin-top: 0.25rem;
+    color: #475569;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 0.4rem;
 }
 
-/* Progress bar */
-.progress-bar {
-    background: rgba(99,102,241,0.15);
-    border-radius: 999px;
-    height: 6px;
-    margin-top: 0.5rem;
-    overflow: hidden;
+/* ── Study plan container ── */
+.plan-container {
+    background: rgba(10,14,24,0.6);
+    border: 1px solid rgba(52,211,153,0.2);
+    border-radius: 18px;
+    padding: 2rem 2.5rem;
+    box-shadow: 0 0 50px rgba(52,211,153,0.04);
+}
+/* Markdown inside plan */
+.plan-container h1, .plan-container h2, .plan-container h3 {
+    color: #c7d2fe !important;
+    font-weight: 700;
+    margin-top: 1.5rem;
+}
+.plan-container h1 { font-size: 1.6rem; }
+.plan-container h2 { font-size: 1.3rem; border-bottom: 1px solid rgba(99,102,241,0.15); padding-bottom: 0.4rem; }
+.plan-container h3 { font-size: 1.05rem; color: #a5b4fc !important; }
+.plan-container p, .plan-container li { color: #cbd5e1; line-height: 1.75; }
+.plan-container strong { color: #e2e8f0; }
+.plan-container ul { padding-left: 1.25rem; }
+.plan-container li { margin-bottom: 0.3rem; }
+.plan-container hr { border-color: rgba(99,102,241,0.12); margin: 1.5rem 0; }
+
+/* ── Results heading ── */
+.results-heading {
+    font-size: 1.7rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #34d399, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.25rem;
 }
 
-.progress-fill {
-    height: 100%;
-    border-radius: 999px;
-    background: linear-gradient(90deg, #6366f1, #8b5cf6);
-    transition: width 0.5s ease;
+/* ── Tabs ── */
+[data-testid="stTabs"] [data-baseweb="tab"] {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #64748b !important;
+}
+[data-testid="stTabs"] [aria-selected="true"] {
+    color: #818cf8 !important;
+}
+
+/* ── Pipeline status bar ── */
+.pipeline-bar {
+    background: rgba(13,19,35,0.8);
+    border: 1px solid rgba(99,102,241,0.2);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    margin: 1rem 0;
 }
 </style>
 """,
@@ -183,9 +240,17 @@ html, body, [class*="css"] {
 # ─── Hero Header ─────────────────────────────────────────────────────────────
 st.markdown(
     """
+<div class="hero-wrap">
 <div class="hero-header">
     <h1>🎓 UIU ScholarFlow AI</h1>
-    <p>Multi-Agent Academic Workflow Coordinator · Powered by OpenAI GPT-4o-mini</p>
+    <p class="subtitle">Multi-Agent Academic Workflow Coordinator &nbsp;·&nbsp; Powered by OpenAI GPT-4o-mini</p>
+    <div class="badge-row">
+        <span class="hero-badge">🤖 3-Agent Pipeline</span>
+        <span class="hero-badge">📚 Syllabus Parser</span>
+        <span class="hero-badge">🧠 Student Profiler</span>
+        <span class="hero-badge">📅 Study Strategist</span>
+    </div>
+</div>
 </div>
 """,
     unsafe_allow_html=True,
@@ -253,15 +318,15 @@ with st.sidebar:
 col1, col2 = st.columns([1, 1], gap="large")
 
 with col1:
-    st.markdown("#### 📋 Course Syllabus / Assignment Details")
     st.markdown(
-        '<span style="color:#64748b; font-size:0.875rem">Paste your course outline, assignment details, exam schedule — anything from your LMS or syllabus PDF.</span>',
+        '<div class="input-card-label">📋 Course Syllabus / Assignment Details</div>'
+        '<div class="input-card-hint">Paste your course outline, exam schedule, or anything from your LMS or syllabus PDF.</div>',
         unsafe_allow_html=True,
     )
     syllabus_input = st.text_area(
         label="Syllabus Input",
         label_visibility="collapsed",
-        height=280,
+        height=290,
         placeholder="""Example:
 Course: CSE 3111 — Operating Systems
 Instructor: Dr. Tanvir Ahmed
@@ -280,15 +345,15 @@ Memory Management, File Systems, I/O Systems""",
     )
 
 with col2:
-    st.markdown("#### 🧑‍🎓 Your Profile & Weak Areas")
     st.markdown(
-        '<span style="color:#64748b; font-size:0.875rem">Describe your weak topics, how many hours you can study per day, and your nearest exam date.</span>',
+        '<div class="input-card-label">🧑‍🎓 Your Profile &amp; Weak Areas</div>'
+        '<div class="input-card-hint">Describe your weak topics, daily study hours, and nearest exam date.</div>',
         unsafe_allow_html=True,
     )
     student_input = st.text_area(
         label="Student Profile Input",
         label_visibility="collapsed",
-        height=280,
+        height=290,
         placeholder="""Example:
 I struggle with CPU Scheduling algorithms — calculating
 turnaround time and waiting time for SJF and Round Robin
@@ -414,7 +479,7 @@ if "result" in st.session_state:
 
     st.markdown("---")
     st.markdown(
-        '<h2 style="background:linear-gradient(135deg,#34d399,#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700">✨ Your ScholarFlow Study Plan</h2>',
+        '<div class="results-heading">✨ Your ScholarFlow Study Plan</div>',
         unsafe_allow_html=True,
     )
 
@@ -452,12 +517,7 @@ if "result" in st.session_state:
     )
 
     with tab1:
-        st.markdown(
-            '<div class="plan-container">',
-            unsafe_allow_html=True,
-        )
         st.markdown(result["study_plan"])
-        st.markdown('</div>', unsafe_allow_html=True)
 
     with tab2:
         if priority_matrix:
@@ -499,8 +559,11 @@ if "result" in st.session_state:
 # ─── Footer ───────────────────────────────────────────────────────────────────
 st.markdown(
     """
-<div style="text-align:center; color:#334155; font-size:0.8rem; margin-top:3rem; padding-top:1.5rem; border-top:1px solid rgba(99,102,241,0.1)">
-    UIU ScholarFlow AI · Built for Codex Community Dhaka Hackathon · Powered by OpenAI GPT-4o-mini
+<div style="text-align:center; color:#1e293b; font-size:0.78rem; margin-top:3rem; padding-top:1.5rem;
+     border-top:1px solid rgba(99,102,241,0.08);">
+    <span style="color:#334155">🎓 UIU ScholarFlow AI</span>
+    &nbsp;·&nbsp; Codex Community Dhaka Hackathon
+    &nbsp;·&nbsp; <span style="color:#3730a3">Powered by OpenAI GPT-4o-mini</span>
 </div>
 """,
     unsafe_allow_html=True,
